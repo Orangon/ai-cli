@@ -1,15 +1,21 @@
 {
-  "name": "magiccube-cli-gpt",
-  "version": "0.2.0",
+  "name": "@wu-cl/ai-cli",
+  "version": "1.0.0",
   "description": "Translate human language to command line using ChatGPT.",
-  "author": "Henry Li <henry1943@163.com>",
+  "author": "Mr.Aloong",
+  "contributors": [
+    "Henry Li <henry1943@163.com>"
+  ],
   "bin": {
-    "cgpt": "./bin/run"
+    "ai": "./bin/run"
   },
-  "homepage": "https://github.com/MagicCube/cli-gpt",
+  "homepage": "https://github.com/Orangon/ai-cli",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": "https://github.com/MagicCube/MagicCube/cli-gpt",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Orangon/ai-cli.git"
+  },
   "files": [
     "/bin",
     "/dist",
@@ -40,8 +46,8 @@
     "typescript": "^4.9.5"
   },
   "oclif": {
-    "bin": "cgpt",
-    "dirname": "cgpt",
+    "bin": "ai",
+    "dirname": "ai",
     "commands": "./dist/ui",
     "default": ".",
     "plugins": [
@@ -59,8 +65,9 @@
   "engines": {
     "node": ">=12.0.0"
   },
-  "bugs": "https://github.com/MagicCube/cli-gpt/issues",
+  "bugs": "https://github.com/Orangon/ai-cli/issues",
   "keywords": [
+    "ai",
     "chatgpt",
     "command line",
     "gpt",
