@@ -1,7 +1,7 @@
 {
   "name": "@wu-cl/ai-cli",
   "version": "1.0.0",
-  "description": "Translate human language to command line using ChatGPT.",
+  "description": "Translate human language to command line using LLM.",
   "author": "Mr.Aloong",
   "contributors": [
     "Henry Li <henry1943@163.com>"
