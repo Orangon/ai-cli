@@ -52,4 +52,3 @@ CAUTION: This command is dangerous!
 ```
 
 ![](docs/images/animation.gif)
-
