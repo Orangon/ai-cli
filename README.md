@@ -5,7 +5,7 @@ Translate human language to command line using LLM.
 ## Installation
 
 ```sh-session
-$ npm install -g magiccube-cli-gpt
+$ npm install -g @wu-cl/ai-cli
 ```
 
 ## Configuration
@@ -31,19 +31,19 @@ $ export OPENAI_MODEL_CLI="gpt-4o"
 ## Usage
 
 ```sh-session
-$ cgpt clone react from github and switch to a new branch named feature/gpt
+$ ai clone react from github and switch to a new branch named feature/gpt
 Translating your words into command line...... done
 
 git clone https://github.com/facebook/react.git && cd react && git checkout -b feature/gpt
 
-$ cgpt delete all the docker untitled images
+$ ai delete all the docker untitled images
 Translating your words into command line...... done
 
 docker rmi $(docker images -f "dangling=true" -q)
 
 CAUTION: This command is dangerous!
 
-$ cgpt 删除所有文件和文件夹
+$ ai 删除所有文件和文件夹
 Translating your words into command line...... done
 
 rm -rf *
