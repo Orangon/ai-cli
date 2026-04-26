@@ -21,7 +21,7 @@
     "@oclif/core": "^2",
     "@oclif/plugin-help": "^5",
     "dotenv": "^16.0.3",
-    "openai": "^3.2.1"
+    "openai": "^4"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",

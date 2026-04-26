@@ -2,19 +2,26 @@ import * as fs from 'node:fs/promises';
 import * as os from 'node:os';
 import * as readline from 'node:readline';
 import * as stream from 'node:stream';
-import type { ChatCompletionRequestMessage } from 'openai';
+import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 
 import type { PromptTemplate } from '../types';
 
+type Role = 'user' | 'assistant' | 'system';
+
+interface DraftMessage {
+  role: Role;
+  content: string;
+}
+
 export async function loadPromptTemplate(path: string) {
   return new Promise<PromptTemplate>(async (resolve) => {
-    const messages: ChatCompletionRequestMessage[] = [];
+    const drafts: DraftMessage[] = [];
     const saveCurrentMessage = () => {
-      if (currentMessage) {
-        currentMessage.content = currentMessage.content.trim();
-        currentMessage.content = currentMessage.content.replace('${OS}', os.platform());
-        messages.push(currentMessage);
-        currentMessage = null;
+      if (currentDraft) {
+        currentDraft.content = currentDraft.content.trim();
+        currentDraft.content = currentDraft.content.replace('${OS}', os.platform());
+        drafts.push(currentDraft);
+        currentDraft = null;
       }
     };
 
@@ -23,23 +30,24 @@ export async function loadPromptTemplate(path: string) {
     bufferStream.end(buffer);
 
     const rl = readline.createInterface({ input: bufferStream });
-    let currentMessage: ChatCompletionRequestMessage | null = null;
+    let currentDraft: DraftMessage | null = null;
     rl.on('line', (line) => {
       if (line.startsWith('# ')) {
         saveCurrentMessage();
-        currentMessage = {
-          role: line.substring(2).trim().toLowerCase() as 'user' | 'assistant' | 'system',
+        currentDraft = {
+          role: line.substring(2).trim().toLowerCase() as Role,
           content: '',
         };
-      } else if (currentMessage) {
+      } else if (currentDraft) {
         const text = line.trim();
         if (text !== '') {
-          currentMessage.content += line + '\n';
+          currentDraft.content += line + '\n';
         }
       }
     });
     rl.on('close', () => {
       saveCurrentMessage();
+      const messages: ChatCompletionMessageParam[] = drafts.map((d) => ({ role: d.role, content: d.content }));
       resolve({ messages });
     });
   });

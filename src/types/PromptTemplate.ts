@@ -1,5 +1,5 @@
-import type { ChatCompletionRequestMessage } from 'openai';
+import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 
 export interface PromptTemplate {
-  messages: ChatCompletionRequestMessage[];
+  messages: ChatCompletionMessageParam[];
 }

@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import { Command, ux } from '@oclif/core';
 
 import { generatePromptMessages } from '../prompt';
