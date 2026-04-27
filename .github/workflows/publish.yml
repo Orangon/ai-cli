@@ -23,6 +23,8 @@ jobs:
       - run: yarn install --frozen-lockfile
 
       - run: yarn prepack
+        env:
+          OPENAI_API_KEY_CLI: dummy
 
       - run: npm publish --provenance --access public
         env:
