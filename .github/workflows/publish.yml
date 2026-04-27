@@ -11,6 +11,8 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      OPENAI_API_KEY_CLI: dummy
     steps:
       - uses: actions/checkout@v4
 
@@ -21,10 +23,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - run: yarn install --frozen-lockfile
-
-      - run: yarn prepack
-        env:
-          OPENAI_API_KEY_CLI: dummy
 
       - run: npm publish --provenance --access public
         env:
