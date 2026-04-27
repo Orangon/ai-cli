@@ -26,4 +26,4 @@ delete all files or folders
 
 # ASSISTANT
 >rm -rf *
-DANGERS
+DANGEROUS
