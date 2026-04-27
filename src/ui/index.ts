@@ -1,8 +1,6 @@
+import { Command, ux } from '@oclif/core';
 import 'dotenv/config';
 
-import { Command, ux } from '@oclif/core';
-
-import { generatePromptMessages } from '../prompt';
 import { translate } from '../translator';
 import type { CommandLine } from '../types';
 
@@ -11,10 +9,9 @@ export default class DefaultCommand extends Command {
 
   async run(): Promise<void> {
     const userInput = this.argv.join(' ');
-    generatePromptMessages(userInput);
     let command: CommandLine;
     try {
-      ux.action.start('Translating your words into command line...');
+      ux.action.start('Translating into command line');
       command = await translate(userInput);
       ux.action.stop();
       this.log(`\x1b[36m\n${command.content}\n\x1b[0m`);
