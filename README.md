@@ -30,6 +30,8 @@ $ export OPENAI_MODEL_CLI="gpt-4o"
 
 ## Usage
 
+Run `ai` followed by a natural-language description of the command you need:
+
 ```sh-session
 $ ai clone react from github and switch to a new branch named feature/gpt
 Translating your words into command line...... done
@@ -49,6 +51,14 @@ Translating your words into command line...... done
 rm -rf *
 
 CAUTION: This command is dangerous!
+```
+
+Use `--help` or `-h` to show usage and configuration info (also shown when running with no arguments):
+
+```sh-session
+$ ai --help
+$ ai -h
+$ ai
 ```
 
 ![](docs/images/animation.gif)
