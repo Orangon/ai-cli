@@ -1,7 +1,7 @@
 import { Command, ux } from '@oclif/core';
 import 'dotenv/config';
 
-import { translate } from '../translator';
+import { translate, UnknownInputError } from '../translator';
 import type { CommandLine } from '../types';
 
 export default class DefaultCommand extends Command {
@@ -19,8 +19,13 @@ export default class DefaultCommand extends Command {
         ux.log('\x1b[41m CAUTION \x1b[0m\x1b[31m This command is dangerous!\x1b[0m');
       }
     } catch (e) {
-      ux.action.stop('Error');
-      ux.error(e instanceof Error ? e.message : 'Unknown error', { exit: 500 });
+      ux.action.stop();
+      if (e instanceof UnknownInputError) {
+        this.log(`\x1b[33m\n${e.message}\n\x1b[0m`);
+        this.exit(1);
+      } else {
+        ux.error(e instanceof Error ? e.message : 'Unknown error', { exit: 500 });
+      }
     }
   }
 }
