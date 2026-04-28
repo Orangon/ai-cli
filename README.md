@@ -14,18 +14,39 @@ $ npm install -g @wu-cl/ai-cli
 | ----------------------- | -------- | --------------------------------------------------------------------------- |
 | `OPENAI_API_KEY_CLI`    | Yes      | Your API key                                                                |
 | `OPENAI_BASE_URL_CLI`   | No       | Custom base URL for any OpenAI-compatible API (defaults to OpenAI official) |
-| `OPENAI_MODEL_CLI`      | No       | Model name to use (defaults to `gpt-3.5-turbo`)                             |
+| `OPENAI_MODEL_CLI`      | No       | Model name to use (defaults to `deepseek-v4-flash`)                             |
 
-You can set these in your shell profile or in a `.env` file at the project root.
+### Guided Setup (First Run)
+
+On first use, `ai` will detect that no API key is configured and launch an interactive setup wizard:
 
 ```sh-session
-$ export OPENAI_API_KEY_CLI="***your-api-key***"
+$ ai list all docker images
 
-# Optional: use a custom OpenAI-compatible endpoint (e.g. a local proxy or another provider)
-$ export OPENAI_BASE_URL_CLI="https://your-custom-endpoint/v1"
+Welcome to ai-cli! Let's set up your configuration.
 
-# Optional: override the model
-$ export OPENAI_MODEL_CLI="gpt-4o"
+Enter your API key (OPENAI_API_KEY_CLI): ****
+Enter base URL (OPENAI_BASE_URL_CLI) — Enter to skip:
+Enter model name (OPENAI_MODEL_CLI) — Enter for default (deepseek-v4-flash):
+
+Configuration saved to ~/.ai-cli/.env
+```
+
+Configuration is stored in `~/.ai-cli/.env`. You can also set environment variables in your shell profile or in a `.env` file at the project root.
+
+### Manage Configuration
+
+Use `--config` to view or update your configuration at any time:
+
+```sh-session
+$ ai --config
+
+Current Configuration:
+  1. API Key:  sk-****670f
+  2. Base URL: https://api.vveai.com/v1
+  3. Model:    gpt-4o
+
+Choose: (u)pdate / (c)lear / (q)uit:
 ```
 
 ## Usage
@@ -59,6 +80,12 @@ Use `--help` or `-h` to show usage and configuration info (also shown when runni
 $ ai --help
 $ ai -h
 $ ai
+```
+
+Manage your configuration interactively:
+
+```sh-session
+$ ai --config
 ```
 
 ![](docs/images/animation.gif)
