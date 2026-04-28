@@ -1,6 +1,7 @@
 import { Command, ux } from '@oclif/core';
 import 'dotenv/config';
 
+import { loadConfig, isConfigured, setupWizard, configManager } from '../config';
 import { translate, UnknownInputError } from '../translator';
 import type { CommandLine } from '../types';
 
@@ -12,22 +13,35 @@ export default class DefaultCommand extends Command {
   static description = `ENVIRONMENT VARIABLES
   OPENAI_API_KEY_CLI    (required) Your API key
   OPENAI_BASE_URL_CLI   (optional) Custom base URL for OpenAI-compatible API
-  OPENAI_MODEL_CLI      (optional) Model name (default: gpt-3.5-turbo)
+  OPENAI_MODEL_CLI      (optional) Model name (default: deepseek-v4-flash)
 
 EXAMPLES
   $ ai clone react from github
   $ ai delete all docker untitled images
-  $ ai find all files larger than 100MB`;
+  $ ai find all files larger than 100MB
+  $ ai --config           # manage configuration
+  $ ai --help             # show this help`;
 
   static usage = 'TEXT';
 
   async run(): Promise<void> {
+    loadConfig();
     const args = this.argv;
     const input = args.join(' ').trim();
+
+    if (args.includes('--config')) {
+      await configManager();
+      return;
+    }
 
     if (input === '' || args.includes('-h') || args.includes('--help')) {
       this.showHelp();
       return;
+    }
+
+    if (!isConfigured()) {
+      await setupWizard();
+      if (!isConfigured()) return;
     }
 
     let command: CommandLine;
