@@ -1,14 +1,21 @@
 import OpenAI from 'openai';
 import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 
-const apiClient = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY_CLI,
-  baseURL: process.env.OPENAI_BASE_URL_CLI,
-});
+let apiClient: OpenAI | null = null;
+
+function getClient(): OpenAI {
+  if (!apiClient) {
+    apiClient = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY_CLI,
+      baseURL: process.env.OPENAI_BASE_URL_CLI,
+    });
+  }
+  return apiClient;
+}
 
 export async function createChatCompletion(messages: ChatCompletionMessageParam[]): Promise<string> {
-  const response = await apiClient.chat.completions.create({
-    model: process.env.OPENAI_MODEL_CLI ?? 'gpt-3.5-turbo',
+  const response = await getClient().chat.completions.create({
+    model: process.env.OPENAI_MODEL_CLI ?? 'deepseek-v4-flash',
     temperature: 0,
     messages,
   });
